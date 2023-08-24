@@ -10,6 +10,9 @@ spring:
     url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&useSSL=false&characterEncoding=utf-8&allowPublicKeyRetrieval=true
     username: root
     password: '000000'
+  cloud:
+    zookeeper:
+      connect-string: node01:2181,node02:2181,node03:2181/cloud
 
 
 mybatis-flex:
@@ -21,18 +24,6 @@ logging:
     group1: com.mybatisflex,com.atguigu.payment.mapper
   level:
     group1: debug
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://eureka01:7001/eureka/,http://eureka02:7002/eureka/
-  instance:
-    instance-id: payment8001
-    prefer-ip-address: true
-    # eureka客户端向服务端发送心跳的时间间隔 1s
-    lease-renewal-interval-in-seconds: 1
-    # eureka服务端在收到最后一次心跳后等待时间上限 2s
-    lease-expiration-duration-in-seconds: 2
+
 
 
