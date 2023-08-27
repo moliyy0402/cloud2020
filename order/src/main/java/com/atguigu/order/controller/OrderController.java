@@ -1,5 +1,6 @@
 package com.atguigu.order.controller;
 
+import com.atguigu.order.client.PaymentService;
 import com.atguigu.order.model.Payment;
 import com.atguigu.order.model.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ public class OrderController {
     private static final String PAYMENT_URL = "http://CLOUD-PAYMENT/";
     @Resource
     private RestTemplate restTemplate;
+    @Resource
+    private PaymentService paymentService;
 
 
     @PostMapping("consumer/payment/add")
@@ -25,8 +28,14 @@ public class OrderController {
 
     @GetMapping("consumer/payment/{id}")
     public Result<Payment> get(@PathVariable Integer id) {
-        Result result = restTemplate.getForObject(PAYMENT_URL + "payment/"+id, Result.class);
+        Result<Payment> result = paymentService.get(id);
         return result;
+    }
+
+    @GetMapping("timeout")
+    public Result<Integer> get() {
+        Integer timeout = paymentService.timeout(0L);
+        return Result.success(timeout);
     }
 
 }
